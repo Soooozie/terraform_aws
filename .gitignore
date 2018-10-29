@@ -1,0 +1,6 @@
+.credentials
+.vagrant
+.bashrc
+terraform.tfvars
+ubuntu*
+terraform
