@@ -1,0 +1,16 @@
+---
+- ec2_instance_facts:
+    filters:
+      "tag:Name": Windows_server
+  register: ec2_win_metadata
+
+- debug: msg="{{ ec2_win_metadata.instances[0].public_ip_address }}"
+
+- add_host:
+    name: "{{ item }}"
+    groups: windows_server
+    ansible_connection: winrm
+    ansible_user: "{{ win_user }}"
+    ansible_port: 5986
+    ansible_winrm_server_cert_validation: ignore
+  with_items: "{{ ec2_win_metadata.instances[0].public_ip_address }}"

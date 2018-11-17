@@ -1,0 +1,31 @@
+---
+- name: update all packages
+  yum:
+    name: "*"
+    state: latest
+
+- name: install requirements
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - sssd
+    - realmd
+    - oddjob
+    - oddjob-mkhomedir
+    - adcli
+    - samba-common
+    - samba-common-tools
+    - krb5-workstation
+    - openldap-clients
+    - policycoreutils-python
+    - epel-release
+
+- name: install pip
+  yum:
+    name: python-pip
+    state: present
+
+- name: install pexpect
+  pip:
+    name: pexpect

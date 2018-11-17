@@ -1,0 +1,13 @@
+---
+- ec2_instance_facts:
+    filters:
+      "tag:Name": linux_server
+  register: ec2_metadata
+
+- debug: msg="{{ ec2_metadata.instances[0].public_ip_address }}"
+
+- add_host:
+    name: "{{ item }}"
+    groups: linux_server
+    ansible_user: centos
+  with_items: "{{ ec2_metadata.instances[0].public_ip_address }}"

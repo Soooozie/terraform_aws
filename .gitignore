@@ -1,6 +1,10 @@
 .credentials
 .vagrant
 .bashrc
-terraform.tfvars
+*.tfvars
 ubuntu*
 terraform
+.terraform
+id_rsa
+vars
+*.tfstate

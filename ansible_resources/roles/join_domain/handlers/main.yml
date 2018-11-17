@@ -1,0 +1,3 @@
+---
+- name: Restart Realmd
+  service: name=realmd state=restarted

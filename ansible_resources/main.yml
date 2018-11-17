@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: true
+  become_user: root
+
+  roles:
+    - add_hosts
+
+- hosts: linux_server
+  become: true 
+  roles:
+    - join_domain

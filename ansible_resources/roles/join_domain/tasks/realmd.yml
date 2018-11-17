@@ -1,0 +1,14 @@
+---
+- name: Check if machine is bound
+  shell: "realm list | grep sssd"
+  register: realmd_bound
+  changed_when: false
+  ignore_errors: true
+
+- name: join system to domain controller
+  expect:
+    command: "realm join --user=Administrator {{ domain }}"
+    responses:
+      Password for *: "{{ domain_credentials }}"
+    timeout: 120
+  when: realmd_bound|failed

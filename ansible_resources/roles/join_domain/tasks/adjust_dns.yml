@@ -1,0 +1,16 @@
+---
+- name: configure nameserver via network interface file
+  lineinfile:
+    path: "{{ network_interface_file_location }}"
+    state: present
+    regexp: '^DNS'
+    line: 'DNS1={{ dns_nameserver_ip }}'
+
+- name: configure nameserver via the /etc/hosts file
+  lineinfile:
+    path: "{{ etc_hosts_location }}"
+    state: present
+    line: '{{ dns_nameserver_ip }}  {{ domain }} adserver'
+
+- name: restart network interface
+  service: name=network state=restarted
